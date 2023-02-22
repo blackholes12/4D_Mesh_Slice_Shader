@@ -7,7 +7,6 @@ layout (location = 3) in vec4 point_D;
 layout (location = 4) in int id;
 
 out vec4 vs_position;
-out mat4 vs_Object4DMat;
 struct line_segment
 {
 int point1;
@@ -320,7 +319,6 @@ if(lineSegment.point1*lineSegment.point2==8){//BD
 vs_position=lerp(pB,pD,(View_Position_D4-pB.w)/(pD.w-pB.w));}
 if(lineSegment.point1*lineSegment.point2==12){//CD
 vs_position=lerp(pC,pD,(View_Position_D4-pC.w)/(pD.w-pC.w));}
-vs_Object4DMat=Object4DMat;
 gl_Position = ProjectionMat * ViewMat * vec4(vs_position.xyz, 1.f);
 
 }
