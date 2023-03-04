@@ -3,5 +3,5 @@ Currently almost best way to generate 4d slice by vertex shader,which has genera
 how to use it?
 Lets consider the easiest way to generate a 4d tetra,you need at least(4 vec4 points and 1 uint id)struct be defined in cpu code as one tetra and copy and send 
 4 tetras to the vertex shader with(id=0,id=1,id=2,id=3)(4 tetras' points are same),the indices is 0,1,2,0,2,3.
-
+These 4 vec4 points need to be arranged in a certain order if you need single side mesh.
 
