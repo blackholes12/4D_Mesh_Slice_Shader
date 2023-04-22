@@ -117,43 +117,16 @@ vec4 cross4d(vec4 a2, vec4 a3, vec4 a4) {
 }
 
 vec4 randomVector,randomVector2,axisX,axisY,axisZ;
-float k1,k2,k3,f0;
-float x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,w1,w2,w3,w4,x,y,z,w;
+
 vec3 texcoord_position(vec4 normal4d,vec4 position4d)
 {
-randomVector=vec4(1.f,0.00001f,0.00001f,0.00001f);
-randomVector2=vec4(0.00001f,1.f,0.00001f,0.00001f);
+randomVector=vec4(1.f,1.00001f,2.00001f,3.00001f);
+randomVector2=vec4(3.00001f,2.f,1.00001f,1.00001f);
 axisX=normalize(cross4d(normal4d,randomVector,randomVector2));
 axisY=normalize(cross4d(normal4d,axisX,randomVector2));
 axisZ=normalize(cross4d(normal4d,axisX,axisY));
 
-x1=axisX.x,y1=axisX.y,z1=axisX.z,w1=axisX.w;
-x2=axisY.x,y2=axisY.y,z2=axisY.z,w2=axisY.w;
-x3=axisZ.x,y3=axisZ.y,z3=axisZ.z,w3=axisZ.w;
-x4=normal4d.x,y4=normal4d.y,z4=normal4d.z,w4=normal4d.w;
-x=position4d.x,y=position4d.y,z=position4d.z,w=position4d.w;
-
-f0=
-x2*(y1*(w3*z4-w4*z3)+y3*(w4*z1-w1*z4)+y4*(w1*z3-w3*z1))
-+x1*(y2*(w4*z3-w3*z4)+y3*(w2*z4-w4*z2)+y4*(w3*z2-w2*z3))+
-x3*(y1*(w4*z2-w2*z4)+y2*(w1*z4-w4*z1)+y4*(w2*z1-w1*z2))+
-x4*(y1*(w2*z3-w3*z2)+y2*(w3*z1-w1*z3)+y3*(w1*z2-w2*z1));
-k1=
-x2*(y*(w3*z4-w4*z3)+y3*(w4*z-w*z4)+y4*(w*z3-w3*z))+
-x*(y2*(w4*z3-w3*z4)+y3*(w2*z4-w4*z2)+y4*(w3*z2-w2*z3))+
-x3*(y*(w4*z2-w2*z4)+y2*(w*z4-w4*z)+y4*(w2*z-w*z2))+
-x4*(y*(w2*z3-w3*z2)+y2*(w3*z-w*z3)+y3*(w*z2-w2*z))/f0;
-k2=
--x1*(y*(w3*z4-w4*z3)+y3*(w4*z-w*z4)+y4*(w*z3-w3*z))+
-x*(y1*(w4*z3-w3*z4)+y3*(w1*z4-w4*z1)+y4*(w3*z1-w1*z3))+
-x3*(y*(w4*z1-w1*z4)+y1*(w*z4-w4*z)+y4*(w1*z-w*z1))+
-x4*(y*(w1*z3-w3*z1)+y1*(w3*z-w*z3)+y3*(w*z1-w1*z))/f0;
-k3=
-x1*(y*(w2*z4-w4*z2)+y2*(w4*z-w*z4)+y4*(w*z2-w2*z))+
-x*(y1*(w4*z2-w2*z4)+y2*(w1*z4-w4*z1)+y4*(w2*z1-w1*z2))+
-x2*(y*(w4*z1-w1*z4)+y1*(w*z4-w4*z)+y4*(w1*z-w*z1))+
-x4*(y*(w1*z2-w2*z1)+y1*(w2*z-w*z2)+y2*(w*z1-w1*z))/f0;
-return vec3(k1,k2,k3);
+return vec3(dot(axisX,position4d),dot(axisY,position4d),dot(axisZ,position4d));
 }
 //3d noise
 /////////////////////////////////////////////////////////////////////
