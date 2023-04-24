@@ -120,8 +120,8 @@ vec4 randomVector,randomVector2,axisX,axisY,axisZ;
 
 vec3 texcoord_position(vec4 normal4d,vec4 position4d)
 {
-randomVector=vec4(1.f,1.00001f,2.00001f,3.00001f);
-randomVector2=vec4(3.00001f,2.f,1.00001f,1.00001f);
+randomVector=vec4(1.f,0.f,0.00100f,0.00001f);
+randomVector2=vec4(0.f,1.f,0.00100f,0.00001f);
 axisX=normalize(cross4d(normal4d,randomVector,randomVector2));
 axisY=normalize(cross4d(normal4d,axisX,randomVector2));
 axisZ=normalize(cross4d(normal4d,axisX,axisY));
