@@ -17,7 +17,7 @@ struct sliced_position
 	vec4 point;
 };
 
-uniform mat4 Object4DMat,ViewMat,ProjectionMat;
+uniform mat4 Object4DMat,viewMat,projectionMat;
 uniform vec4 Translate4D;
 uniform vec4 cameraPos;
 vec4 pA,pB,pC,pD;
@@ -30,9 +30,8 @@ float disA,disB,disC,disD;
 vec4 lerp(vec4 A,vec4 B,float C){
 return A*(1.f-C)+B*C;
 }
-vec3 calculate_3D_normal(vec3 a2, vec3 a3) {
-		return vec3(a2.y*a3.z-a2.z*a3.y,a2.z*a3.x-a2.x*a3.z,a2.x*a3.y-a2.y*a3.x);
-	}
+
+
 
 void main()
 {
@@ -42,7 +41,7 @@ pB=Object4DMat *point_B+Translate4D;
 pC=Object4DMat *point_C+Translate4D;
 pD=Object4DMat *point_D+Translate4D;
 
-wDir=normalize(vec4(0,0,0,1)*ViewMat);
+wDir=normalize(vec4(0,0,0,1)*viewMat);
 disA=dot(cameraPos-pA,wDir);
 disB=dot(cameraPos-pB,wDir);
 disC=dot(cameraPos-pC,wDir);
@@ -216,20 +215,20 @@ vs_cameraPos=cameraPos;
 
 for(i=0;i<vertexAmount;i++){
 if(slicedPosition[i].line==2){//AB
-slicedPosition[i].point=lerp(pA,pB,(-disA)/(disB-disA));}
+slicedPosition[i].point=lerp(pA,pB,(disA)/(disA-disB));}
 if(slicedPosition[i].line==3){//AC
-slicedPosition[i].point=lerp(pA,pC,(-disA)/(disC-disA));}
+slicedPosition[i].point=lerp(pA,pC,(disA)/(disA-disC));}
 if(slicedPosition[i].line==4){//AD
-slicedPosition[i].point=lerp(pA,pD,(-disA)/(disD-disA));}
+slicedPosition[i].point=lerp(pA,pD,(disA)/(disA-disD));}
 if(slicedPosition[i].line==6){//BC
-slicedPosition[i].point=lerp(pB,pC,(-disB)/(disC-disB));}
+slicedPosition[i].point=lerp(pB,pC,(disB)/(disB-disC));}
 if(slicedPosition[i].line==8){//BD
-slicedPosition[i].point=lerp(pB,pD,(-disB)/(disD-disB));}
+slicedPosition[i].point=lerp(pB,pD,(disB)/(disB-disD));}
 if(slicedPosition[i].line==12){//CD
-slicedPosition[i].point=lerp(pC,pD,(-disC)/(disD-disC));}
+slicedPosition[i].point=lerp(pC,pD,(disC)/(disC-disD));}
 }
 
-if( dot(calculate_3D_normal((ViewMat*slicedPosition[0].point).xyz-(ViewMat*slicedPosition[1].point).xyz, (ViewMat*slicedPosition[0].point).xyz-(ViewMat*slicedPosition[2].point).xyz),(ViewMat*normal4D).xyz)<0 )
+if( dot(cross((viewMat*slicedPosition[0].point).xyz-(viewMat*slicedPosition[1].point).xyz, (viewMat*slicedPosition[0].point).xyz-(viewMat*slicedPosition[2].point).xyz),(viewMat*normal4D).xyz)<0 )
 {
 if(id==0){
 vs_position=slicedPosition[2].point;
@@ -249,9 +248,22 @@ else
 vs_position=slicedPosition[id].point;
 }
 
-relativePos= ViewMat*(vs_position-cameraPos);
-gl_Position = ProjectionMat * vec4(relativePos.xyz, 1.f);
-
 }
-
+if(vertexAmount==3&&id==3)
+{
+if(slicedPosition[0].line==2){//AB
+vs_position=lerp(pA,pB,(disA)/(disA-disB));}
+if(slicedPosition[0].line==3){//AC
+vs_position=lerp(pA,pC,(disA)/(disA-disC));}
+if(slicedPosition[0].line==4){//AD
+vs_position=lerp(pA,pD,(disA)/(disA-disD));}
+if(slicedPosition[0].line==6){//BC
+vs_position=lerp(pB,pC,(disB)/(disB-disC));}
+if(slicedPosition[0].line==8){//BD
+vs_position=lerp(pB,pD,(disB)/(disB-disD));}
+if(slicedPosition[0].line==12){//CD
+vs_position=lerp(pC,pD,(disC)/(disC-disD));}
+}
+relativePos= viewMat*(vs_position-cameraPos);
+gl_Position = projectionMat * vec4(relativePos.xyz, 1.f);
 }
