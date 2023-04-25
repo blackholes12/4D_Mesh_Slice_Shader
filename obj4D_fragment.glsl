@@ -128,14 +128,10 @@ axisZ=normalize(cross4d(normal4d,axisX,axisY));
 
 return vec3(dot(axisX,position4d),dot(axisY,position4d),dot(axisZ,position4d));
 }
-//3d noise
-/////////////////////////////////////////////////////////////////////
+
 float simplex3d(vec3 p) {
 	 return 2.337f*(0.61f-texture(NoiseTex3D,p/26.f).r);
 }
-
-//4d noise
-/////////////////////////////////////////////////////////////////////
 
 float noisexyw(vec4 v)
   {
