@@ -96,17 +96,16 @@ vec3 calculateDirection(vec4 vs_normal, vec4 direction)
 vec3 lerp(vec3 A,vec3 B,float C){
 return A*(1.f-C)+B*C;
 }
-float factorR,factorG,factorB;
+float factor;
 vec3 fog(vec3 A,vec3 B,float far)
 {
-factorR=exp(-0.25*far);
-factorG=exp(-0.51*far);
-factorB=exp(-1.17*far);
-return vec3(A.r*factorR+B.r*(1.f-factorR),
-A.g*factorG+B.g*(1.f-factorG),
-A.b*factorB+B.b*(1.f-factorB)
+factor=exp(-far);
+return vec3(A.r*factor+B.r*(1.f-factor),
+A.g*factor+B.g*(1.f-factor),
+A.b*factor+B.b*(1.f-factor)
 );
 }
+
 vec4 cross4d(vec4 a2, vec4 a3, vec4 a4) {
 	return vec4(
 		a2.y * a3.z * a4.w - a2.y * a3.w * a4.z - a2.z * a3.y * a4.w + a2.z * a3.w * a4.y + a2.w * a3.y * a4.z - a2.w * a3.z * a4.y,
@@ -425,6 +424,6 @@ specular_color+=specularFinal[i]*pointLight4D[i].color;
 direction_color=0.95f*calculateDirection(vs_normal, directionLight4D.direction4D);
 color=color*(ambient_color+diffuse_color+specular_color+direction_color);
 viewDistance=length(vs_cameraPos-vs_position);
-color=fog(color,vec3(0.375f,0.555f,0.835f)/1.1f,viewDistance*0.023f);
+color=fog(color,vec3(0.375f,0.555f,0.835f)/1.1f,viewDistance*0.03861f);
 fs_color=vec4(color,transparency);
 }
