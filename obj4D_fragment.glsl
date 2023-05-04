@@ -105,7 +105,6 @@ A.g*factor+B.g*(1.f-factor),
 A.b*factor+B.b*(1.f-factor)
 );
 }
-
 vec4 cross4d(vec4 a2, vec4 a3, vec4 a4) {
 	return vec4(
 		a2.y * a3.z * a4.w - a2.y * a3.w * a4.z - a2.z * a3.y * a4.w + a2.z * a3.w * a4.y + a2.w * a3.y * a4.z - a2.w * a3.z * a4.y,
@@ -132,6 +131,12 @@ float simplex3d(vec3 p) {
 	 return 2.337f*(0.61f-texture(NoiseTex3D,p/26.f).r);
 }
 
+float noisexyzw(vec4 v)
+{
+return 2.337f*(0.61f*4.f-texture(NoiseTex3D,v.yzw/26.f).r-
+texture(NoiseTex3D,v.xzw/26.f).r-texture(NoiseTex3D,v.xyw/26.f).r
+-texture(NoiseTex3D,v.xyz/26.f).r);
+}
 float noisexyw(vec4 v)
   {
   return 2.337f*(0.61f-texture(NoiseTex3D,v.xyw/26.f).r);
@@ -372,12 +377,12 @@ color=lerp(vec3(0.36f,0.5f,0.3f),vec3(0.16f,0.36f,0.2125f),value);
 
 if(colortype==23){//WOODXYZ
 isReflect=false;
-value = 1.0f+0.35f*noisexyw(vec4(1,1,1,0.015f)*vs_position*64.0)+0.35f*noisexyw(vec4(1,1,1,0.015f)*vs_position*64.0/exp(1))+0.35f*noisexyw(vec4(1,1,1,0.015f)*vs_position*64.0/exp(2));	
+value = 1.0f+0.35f*noisexyzw(vec4(1,1,1,0.015f)*vs_position*64.0)+0.35f*noisexyzw(vec4(1,1,1,0.015f)*vs_position*64.0/exp(1))+0.35f*noisexyzw(vec4(1,1,1,0.015f)*vs_position*64.0/exp(2));	
 color=lerp(vec3(152.f,111.f,74.f),vec3(251.f,218.f,190.f),value)/435.2f;
 }
 if(colortype==24){//WOODXZW
 isReflect=false;
-value = 1.0f+0.35f*noisexyw(vec4(1,0.015f,1,1)*vs_position*64.0)+0.35f*noisexyw(vec4(1,0.015f,1,1)*vs_position*64.0/exp(1))+0.35f*noisexyw(vec4(1,0.015f,1,1)*vs_position*64.0/exp(2));	
+value = 1.0f+0.35f*noisexyzw(vec4(1,0.015f,1,1)*vs_position*64.0)+0.35f*noisexyzw(vec4(1,0.015f,1,1)*vs_position*64.0/exp(1))+0.35f*noisexyzw(vec4(1,0.015f,1,1)*vs_position*64.0/exp(2));	
 color=lerp(vec3(152.f,111.f,74.f),vec3(251.f,218.f,190.f),value)/435.2f;
 }
 if(colortype==25){//WATER
