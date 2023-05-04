@@ -133,9 +133,9 @@ float simplex3d(vec3 p) {
 
 float noisexyzw(vec4 v)
 {
-return 2.337f*(0.63f*3.78f-texture(NoiseTex3D,v.yzw/26.f).r-
+return 2.337f*(0.63f*3.764f-texture(NoiseTex3D,v.yzw/26.f).r-
 texture(NoiseTex3D,v.xzw/26.f).r-texture(NoiseTex3D,v.xyw/26.f).r
--texture(NoiseTex3D,v.xyz/26.f).r)/1.935f;
+-texture(NoiseTex3D,v.xyz/26.f).r)/1.964f;
 }
 
 float noisexyw(vec4 v)
