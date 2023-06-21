@@ -293,6 +293,3 @@ vs_normal=slice(normal_A,normal_B,normal_C,normal_D,disA,disB,disC,disD,line);
 vs_position=pos0*viewMat+cameraPos;
 gl_Position = projectionMat * vec4(pos0.xyz, 1.f);
 }
-relativePos= viewMat*(vs_position-cameraPos);
-gl_Position = projectionMat * vec4(relativePos.xyz, 1.f);
-}
