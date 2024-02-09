@@ -5,4 +5,4 @@ Lets consider the easiest way to generate a 4d tetra,you need at least(4 vec4 po
 4 tetras to the vertex shader with(id=0,id=1,id=2,id=3)(4 tetras' points are same),the indices is 0,1,2,0,2,3.
 These 4 vec4 points need to be arranged in a certain order if you need single side mesh.
 <img width="960" alt="2023-06-27 213809" src="https://github.com/blackholes12/Fast_4D_Mesh_Slice_Shader/assets/104487053/1770a232-c953-4821-97aa-732ad066ece1">
-![Screenshot20240205215547](https://github.com/blackholes12/Fast_4D_Mesh_Slice_Shader/assets/104487053/3e37fb9e-5e15-4089-a01b-4ce7f7db38d8)
+![Screenshot202402052155471](https://github.com/blackholes12/Fast_4D_Mesh_Slice_Shader/assets/104487053/204f8704-5a10-4af1-a7f7-324c80c8aa3b)
